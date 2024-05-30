@@ -23,9 +23,9 @@ def get_gpt3_reply(text):
     return response.choices[0].text.strip()
 
 def get_gpt3dot5_reply(text):
-    print("Calling gpt-3.5-turbo API...")
+    print("Calling gpt-4o-2024-05-13 API...")
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-2024-05-13",
         messages=[
             {"role": "user", "content": text}
         ],
@@ -36,7 +36,7 @@ def get_gpt3dot5_reply(text):
 
 @robot.text
 def hello_world(message):
-    if (os.getenv("GPT_MODEL_VERSION") == "3"):
+    if os.getenv("GPT_MODEL_VERSION") == "3":
         reply = get_gpt3_reply(message.content)
     else:
         reply = get_gpt3dot5_reply(message.content)
@@ -45,13 +45,8 @@ def hello_world(message):
 
     return reply
 
-# robot.config['HOST'] = '0.0.0.0'
-# port = os.getenv("PORT")
-# robot.config['PORT'] = 8888 if port is None else port
-# robot.run()
-
-### Integrate with Flask
-from flask import Flask
+# Integrate with Flask
+from flask import Flask, request
 from werobot.contrib.flask import make_view
 
 app = Flask(__name__)
@@ -65,6 +60,7 @@ app.add_url_rule(rule='/robot/', # WeRoBot 的绑定地址
                 view_func=make_view(robot),
                 methods=['GET', 'POST'])
 
-port = os.getenv("PORT")
-port = 8888 if port is None else port
-app.run(host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    port = os.getenv("PORT")
+    port = 8888 if port is None else int(port)
+    app.run(host='0.0.0.0', port=port)
