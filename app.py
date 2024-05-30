@@ -35,6 +35,10 @@ def get_gpt3dot5_reply(text):
     )
     return response.choices[0].message.content.strip()
 
+def split_text(text, max_length=500):
+    """将长文本分割成多段"""
+    return [text[i:i+max_length] for i in range(0, len(text), max_length)]
+
 @robot.handler
 def handle_message(message):
     if message.type == 'image':
@@ -50,7 +54,8 @@ def handle_text(message):
     else:
         reply = get_gpt3dot5_reply(message.content)
 
-    return reply
+    replies = split_text(reply)
+    return '\n\n'.join(replies)
 
 def handle_image(message):
     image_url = message.img
