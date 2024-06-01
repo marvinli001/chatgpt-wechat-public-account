@@ -2,8 +2,6 @@
 
 把 ChatGPT 接入微信公众号。
 
-![使用](./images/usage.jpg)
-
 ## 前置条件
 
 1. OpenAI 账号，并[创建 API Key](https://platform.openai.com/account/api-keys)
