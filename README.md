@@ -20,9 +20,8 @@
 
 1. `python app.py`
 
-1. 默认会运行在 8888 端口，可以使用 ngrok 把 localhost 服务映射到公网：
+1. 默认会运行在 8888 端口，Nignx反向代理 8888 端口：
 
-    `ngrok http 8888`
 
 1. 根据[微信公众平台开发](https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html)的第一步，填写服务器配置：
     
